@@ -8,6 +8,7 @@ How to use
 
 import pdfplumber
 import pandas as pd
+import openpyxl
 
 pdf_path = r""
 output_path = r""
@@ -66,9 +67,20 @@ order_df.columns = COLUMNS
 
 # convert qty column to int
 order_df['Qty'] = order_df['Qty'].astype(int)
-#order_df
 
 # group by sku to get total quantities
 grouped_df = order_df.groupby(['Seller SKU', 'SKU'], as_index=False)['Qty'].sum()
-#print(grouped_df)
 grouped_df.to_excel(output_path, index=False)
+
+# adjust column widths in excel
+wb = openpyxl.load_workbook(output_path)
+ws = wb['Sheet1']
+
+for col in ws.columns:
+  # only qty column is smaller
+  if col[0].column_letter == 'C':
+    ws.column_dimensions[col[0].column_letter].width = 10
+  else:
+    ws.column_dimensions[col[0].column_letter].width = 40
+
+wb.save(output_path)
