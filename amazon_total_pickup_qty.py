@@ -12,15 +12,12 @@ def expand_sets(row):
   barcode_field = str(row['ORIGINAL JAN']).strip()
   expanded = []
   
+  # replace all \n with space for uniformity
   if '\n' in barcode_field:
-    barcodes = barcode_field.split('\n')
+    barcode_field = barcode_field.replace('\n', ' ')
 
-    for barcode in barcodes:
-      expanded.append({
-          'Original Jan': barcode.strip(),
-          'Total Qty': int(row['Ship out\nQty'])
-      })
-  elif ' ' in barcode_field:
+  # separate sets of barcodes into individuals  
+  if ' ' in barcode_field:
     barcodes = barcode_field.split(' ')
 
     for barcode in barcodes:
