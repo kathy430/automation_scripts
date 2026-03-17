@@ -127,16 +127,15 @@ def expand_sets(row):
         sku = barcode
         qty = 1
 
-      if qty == 1:
-        expanded.append({
-            '(Child) ASIN': row['(Child) ASIN'],
-            'Brand': row['Brand'],
-            'Barcode': sku,
-            'Title': row['Title'],
-            'Units Ordered': int(row['Units Ordered']),
-            'Ordered Product Sales': float(row['Ordered Product Sales']) / len(barcodes), # split sales evenly amongst items
-            'Month': row['Month']
-        })
+      expanded.append({
+          '(Child) ASIN': row['(Child) ASIN'],
+          'Brand': row['Brand'],
+          'Barcode': sku,
+          'Title': row['Title'],
+          'Units Ordered': int(row['Units Ordered']),
+          'Ordered Product Sales': float(row['Ordered Product Sales']) / len(barcodes), # split sales evenly amongst items
+          'Month': row['Month']
+      })
   elif '*' in barcode_field:
     qty, sku = barcode_field.split('*')
     qty = int(qty)
@@ -154,7 +153,7 @@ def expand_sets(row):
     expanded.append({
         '(Child) ASIN': row['(Child) ASIN'],
         'Brand': row['Brand'],
-        'Barcode': row['Barcode'],
+        'Barcode': barcode_field,
         'Title': row['Title'],
         'Units Ordered': int(row['Units Ordered']),
         'Ordered Product Sales': float(row['Ordered Product Sales']),
