@@ -15,7 +15,7 @@ import pandas as pd
 import numpy as np
 import os
 
-forecast_path = ''
+forecast_path = 'redacted'
 
 # open forecast path
 forecast = gc.open(forecast_path).sheet1
